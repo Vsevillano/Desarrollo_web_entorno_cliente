@@ -1,4 +1,36 @@
 $(function(){
+	
+	   jQuery.fn.plugin = function () {
+        let color, porcentaje, numTamanio, rgba;
+        let tamanioActual = $(this).height();
+        let fontsizeActual = $(this).css('font-size');
+        
+        if (arguments[0] == null) {
+            porcentaje = '0.4';
+            numTamanio = 5;
+            rgba = 'rgba(255, 229,0,';
+        } else {
+            let opciones = arguments[0];
+            porcentaje = opciones.porc;
+            numTamanio = opciones.numTamanio;
+            rgba = opciones.rgba;
+        }
+        color = rgba + porcentaje + ')';
+
+        return $(this).css({
+            'background': color,
+        }).on('click', function () {
+            $(this).css({
+                'height': tamanioActual * numTamanio + 'px',
+                'font-size': '2em'
+            });
+        }).on('dblclick', function () {
+            $(this).css({
+                'height': tamanioActual + 'px',
+                'font-size': fontsizeActual
+            });
+        });
+    };
 
     $("h1").attr("id", "sevillano")
            .text("Examen jQuery. Marzo de 2018.Victoriano Sevillano Vega")
@@ -57,5 +89,12 @@ $(function(){
     $submits.each(function(index, element){
       $(element).on('click', funcionesClick[index]);
     });
+	
+	$('.domtree>h3').plugin();
+        $('#miId').plugin({
+            porc:'1',
+            numTamanio:6,
+            rgba:'rgba(255, 0, 0,',
+        });
 
 });
